@@ -13,9 +13,14 @@ def rotate(nums, k):
             a[i + k - n] = nums[i]
     for i in range(0, n):
         nums[i] = a[i]
+    return 
 
 # https://leetcode.com/problems/reverse-integer/description/
 def reverse(n):
+    top = 2 ** 31 
+    down = -1 * 2**31 
+    if n > top or n < down:
+        return 0
     if n == 0:
         return n
     while n % 10 == 0:
@@ -25,9 +30,10 @@ def reverse(n):
         n = n * -1
         b = b + '-'
     s = str(n)
-    for i in range(len(s) - 1, -1, -1):
-        b = b + s[i]
+    b = b + s[::-1]
     n = int(b)
+    if n > top or n < down:
+        return 0
     return n
 
 # https://leetcode.com/problems/contains-duplicate-iii/description/
