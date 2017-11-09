@@ -41,14 +41,21 @@ def contains_nearby_almost_duplicate(nums, k, t):
     n = len(nums)
     if n == 0 or n == 1:
         return False
-    if k > n:
-        k = n
-    for i in range(0, n - 1):
-        for j in range(i + 1, k + i + 1):
-            if j < n:
-                s = abs(nums[j] - nums[i])
-                if s <= t:
-                    return True
+    if t < 0: return False
+        d = {}
+        w = t + 1
+        for i,v in enumerate(nums):
+            m = v / w
+            if m in d:
+                return True
+            if m - 1 in d and abs(v - d[m - 1]) < w:
+                return True
+            if m + 1 in d and abs(v - d[m + 1]) < w:
+                return True
+            d[m] = v
+            if i >= k: 
+                del d[nums[i - k] / w]
+        return False
     return False
 
 # https://leetcode.com/problems/largest-palindrome-product/description/
